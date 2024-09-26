@@ -23,5 +23,11 @@ export function HandleLogin() {
     }));
   };
 
-  return { handleSubmit, handleChange, formData };
+  const [showPassword, setshowpassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setshowpassword(!showPassword);
+  };
+
+  return { handleSubmit, handleChange, toggleShowPassword, showPassword, formData };
 }
