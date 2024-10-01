@@ -16,9 +16,8 @@ export function SignUp() {
 
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [acceptTerms, setAcceptTerms] = useState(false); // Stato per il controllo della checkbox
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
-  // Funzione per il submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -29,9 +28,42 @@ export function SignUp() {
 
     if (formData.password !== confirmPassword) {
       setErrorMessage('Le password non coincidono');
+      return;
     } else {
       setErrorMessage('');
-      alert('Registrazione avvenuta con successo!');
+    }
+
+    const requestBody = {
+      username: formData.username,
+      email: formData.email,
+      phone: formData.phone,
+      password: formData.password,
+    };
+
+    try {
+      // Chiamata POST con fetch verso MockAPI
+      const response = await fetch(
+        'https://66fc0e66c3a184a84d15e4f0.mockapi.io/Users',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        alert('Registrazione avvenuta con successo!');
+        console.log('Dati della risposta:', data);
+      } else {
+        const errorData = await response.json();
+        setErrorMessage(`Errore: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error('Errore nella richiesta:', error);
+      setErrorMessage('Si è verificato un errore durante la registrazione.');
     }
   };
 
