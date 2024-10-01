@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Button } from '../common/Button';
-import { Checkbox } from '../common/Checkbox';
-import { HandleLogin } from '../HandleLogin';
-import { Textbox } from '../common/Textbox';
+import { Button } from '../globali/Button';
+import { Checkbox } from '../globali/Checkbox';
+import { HandleLogin } from '../logica/HandleLogin';
+import { Textbox } from '../globali/Textbox';
 
 export function Login() {
   const {

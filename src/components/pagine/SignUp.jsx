@@ -1,7 +1,7 @@
 import { HandleLogin } from '../logica/HandleLogin';
-import { Textbox } from './Textbox';
-import { Button } from './Button';
-import { Checkbox } from './Checkbox';
+import { Textbox } from '../globali/Textbox';
+import { Button } from '../globali/Button';
+import { Checkbox } from '../globali/Checkbox';
 import { useState } from 'react';
 
 export function SignUp() {
