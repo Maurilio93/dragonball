@@ -152,7 +152,7 @@ export function Home() {
 
               <div className="hidden sm:flex">
                 <Link to="/signup">
-                  <Button type="button" text="Register" />
+                  <Button type="button" text="Registrati" />
                 </Link>
               </div>
             </div>

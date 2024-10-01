@@ -125,7 +125,7 @@ export function SignUp() {
               <Button
                 type="submit"
                 text="Registrati"
-                className="w-full sm:w-auto rounded-lg bg-green-500 px-5 py-3 font-medium text-white"
+                className="inline-block rounded-lg bg-green-500 px-5 py-3 text-sm font-medium text-white"
               />
             </div>
           </form>

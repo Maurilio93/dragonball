@@ -14,9 +14,9 @@ export function Login() {
   } = HandleLogin();
 
   return (
-    <div className="flex flex-col justify-center items-center w-full min-h-screen bg-white">
+    <div className="flex flex-col justify-center items-center w-full min-h-screen bg-gray-100">
       <div className="mx-auto max-w-lg text-center">
-        <h1 className="text-2xl font-bold sm:text-3xl">Accedi</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl m-5">Accedi</h1>
       </div>
       <div className="rounded-lg bg-white p-8 shadow-lg">
         <form
