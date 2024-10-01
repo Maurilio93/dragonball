@@ -41,7 +41,6 @@ export function SignUp() {
     };
 
     try {
-      // Chiamata POST con fetch verso MockAPI
       const response = await fetch(
         'https://66fc0e66c3a184a84d15e4f0.mockapi.io/Users',
         {
