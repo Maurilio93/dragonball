@@ -41,16 +41,14 @@ export function SignUp() {
     };
 
     try {
-      const response = await fetch(
-        'https://66fc0e66c3a184a84d15e4f0.mockapi.io/Users',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestBody),
-        }
-      );
+      const url = 'https://66fc0e66c3a184a84d15e4f0.mockapi.io/Users';
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
 
       if (response.ok) {
         const data = await response.json();
