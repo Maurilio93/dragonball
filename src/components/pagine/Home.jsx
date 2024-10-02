@@ -13,7 +13,7 @@ export function Home() {
       setLoading(true);
       const response = await fetch(
         'https://dragonball-api.com/api/characters?limit=58'
-      ); // Usa l'endpoint dell'API di Dragon Ball con un limite maggiore
+      );
       const data = await response.json();
 
       let filteredCharacters = data.items; // Accedi all'array 'items' per ottenere i personaggi
@@ -134,7 +134,7 @@ export function Home() {
             characters.map((character, index) => (
               <div
                 key={index}
-                className="card border rounded-lg shadow-md flex flex-col items-center p-2 bg-white"
+                className="card border rounded-lg shadow-md flex flex-col items-center p-2 bg-white hover:shadow-lg hover:scale-105 transition-transform duration-300"
               >
                 <div className="w-full h-56 flex justify-center items-center mb-4">
                   <img

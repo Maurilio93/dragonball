@@ -3,6 +3,8 @@ import { Textbox } from '../globali/Textbox';
 import { Button } from '../globali/Button';
 import { Checkbox } from '../globali/Checkbox';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export function SignUp() {
   const { handleChange, formData, showPassword, toggleShowPassword } =
@@ -15,22 +17,28 @@ export function SignUp() {
     });
 
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
   const [acceptTerms, setAcceptTerms] = useState(false);
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     if (!acceptTerms) {
-      setErrorMessage('Devi accettare i termini e le condizioni.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Devi accettare i termini e le condizioni.',
+      });
       return;
     }
 
     if (formData.password !== confirmPassword) {
-      setErrorMessage('Le password non coincidono');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Le password non coincidono',
+      });
       return;
-    } else {
-      setErrorMessage('');
     }
 
     const requestBody = {
@@ -52,15 +60,38 @@ export function SignUp() {
 
       if (response.ok) {
         const data = await response.json();
-        alert('Registrazione avvenuta con successo!');
+
+        // Success Alert
+        Swal.fire({
+          icon: 'success',
+          title: 'Registrazione avvenuta con successo!',
+          text: 'Ora puoi accedere con le tue credenziali.',
+        });
+
         console.log('Dati della risposta:', data);
+
+        // Salva i dati nel localStorage
+        localStorage.setItem('username', data.username);
+        localStorage.setItem('email', data.email);
+        localStorage.setItem('phone', data.phone);
+        localStorage.setItem('password', data.password);
+
+        navigate('/login');
       } else {
         const errorData = await response.json();
-        setErrorMessage(`Errore: ${errorData.message}`);
+        Swal.fire({
+          icon: 'error',
+          title: 'Errore',
+          text: `Errore: ${errorData.message}`,
+        });
       }
     } catch (error) {
       console.error('Errore nella richiesta:', error);
-      setErrorMessage('Si è verificato un errore durante la registrazione.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Errore',
+        text: 'Si è verificato un errore durante la registrazione.',
+      });
     }
   };
 
@@ -74,7 +105,6 @@ export function SignUp() {
         <div className="rounded-lg bg-white p-8 shadow-lg">
           <form onSubmit={handleFormSubmit} className="space-y-4">
             <div className="flex flex-col space-y-4">
-              {/* Campo per l'Username */}
               <Textbox
                 type="text"
                 name="username"
@@ -84,7 +114,6 @@ export function SignUp() {
                 className="w-full rounded-lg border-gray-200 p-3 text-sm"
               />
 
-              {/* Campo per l'Email */}
               <Textbox
                 type="email"
                 name="email"
@@ -94,7 +123,6 @@ export function SignUp() {
                 className="w-full rounded-lg border-gray-200 p-3 text-sm"
               />
 
-              {/* Campo per il Numero di Telefono */}
               <Textbox
                 type="tel"
                 name="phone"
@@ -104,7 +132,6 @@ export function SignUp() {
                 className="w-full rounded-lg border-gray-200 p-3 text-sm"
               />
 
-              {/* Campo per la Password */}
               <Textbox
                 type={showPassword ? 'text' : 'password'}
                 name="password"
@@ -114,7 +141,6 @@ export function SignUp() {
                 className="w-full rounded-lg border-gray-200 p-3 text-sm"
               />
 
-              {/* Campo per la Conferma Password */}
               <Textbox
                 type={showPassword ? 'text' : 'password'}
                 name="confirmPassword"
@@ -125,31 +151,21 @@ export function SignUp() {
               />
             </div>
 
-            {/* Checkbox per Mostra Password */}
             <div className="flex items-center justify-center gap-2">
               <Checkbox onChange={toggleShowPassword} checked={showPassword} />
               <span>Mostra Password</span>
             </div>
 
-            {/* Messaggio di errore per password non corrispondenti */}
-            {errorMessage && (
-              <p className="text-red-500 text-center font-semibold">
-                {errorMessage}
-              </p>
-            )}
-
-            {/* Checkbox per i Termini e Condizioni */}
             <div className="flex items-center justify-center gap-2">
               <Checkbox
-                checked={acceptTerms} // Stato locale per il controllo della checkbox
-                onChange={() => setAcceptTerms(!acceptTerms)} // Inverti il valore quando viene cliccata
+                checked={acceptTerms}
+                onChange={() => setAcceptTerms(!acceptTerms)}
               />
               <span className="text-gray-700">
                 Accetto i termini e le condizioni
               </span>
             </div>
 
-            {/* Bottone di Registrazione */}
             <div className="mt-4 flex justify-center">
               <Button
                 type="submit"
