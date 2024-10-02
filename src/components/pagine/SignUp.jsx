@@ -47,6 +47,8 @@ export function SignUp() {
       phone: formData.phone,
       password: formData.password,
     };
+    console.log('Dati inviati:', requestBody);
+
 
     try {
       const url = 'https://66fc0e66c3a184a84d15e4f0.mockapi.io/Users';
@@ -60,8 +62,6 @@ export function SignUp() {
 
       if (response.ok) {
         const data = await response.json();
-
-        // Success Alert
         Swal.fire({
           icon: 'success',
           title: 'Registrazione avvenuta con successo!',
@@ -70,7 +70,6 @@ export function SignUp() {
 
         console.log('Dati della risposta:', data);
 
-        // Salva i dati nel localStorage
         localStorage.setItem('username', data.username);
         localStorage.setItem('email', data.email);
         localStorage.setItem('phone', data.phone);

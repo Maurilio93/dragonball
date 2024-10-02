@@ -36,7 +36,7 @@ export function Home() {
   // Esegui la chiamata API al montaggio del componente
   useEffect(() => {
     fetchCharacters();
-  }, []); // [] assicura che la chiamata venga fatta solo una volta
+  }, []);
 
   // Funzione per gestire la ricerca
   const handleSearch = (event) => {
@@ -46,7 +46,7 @@ export function Home() {
 
   return (
     <div>
-      <header className="bg-white">
+      <header className="bg-gray-300">
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="md:flex md:items-center md:gap-12">
@@ -58,11 +58,9 @@ export function Home() {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  {/* SVG Path */}
                 </svg>
               </a>
             </div>
-            {/* Logo allineato a destra */}
             <div className="ml-auto">
               <img
                 src="src/images/logo_title.png"
@@ -70,8 +68,6 @@ export function Home() {
                 className="h-10 w-auto"
               />
             </div>
-
-            {/* Menu centrato */}
             <nav aria-label="Global" className="flex-1 flex justify-center">
               <ul className="flex items-center gap-6 text-lg">
                 {['Saiyan', 'Universi', 'Contatti'].map((item) => (
@@ -87,7 +83,6 @@ export function Home() {
               </ul>
             </nav>
 
-            {/* Pulsanti Login/Registrati e Logo a destra */}
             <div className="flex items-center gap-4">
               <div className="sm:flex sm:gap-4">
                 <Link to="/login">
@@ -106,7 +101,6 @@ export function Home() {
       </header>
 
       <main className="px-4 py-8">
-        {/* Campo di ricerca al centro */}
         <form
           onSubmit={handleSearch}
           className="flex justify-center items-center mt-8"
@@ -116,14 +110,14 @@ export function Home() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Cerca personaggi..."
-            className="px-3 py-2 border rounded-lg focus:outline-none"
+            className="px-5 py-3 mx-2 border rounded-lg focus:outline-none"
           />
-          <button
+          <Button
             type="submit"
-            className="ml-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-teal-700"
+            text='Cerca'
           >
             Cerca
-          </button>
+          </Button>
         </form>
 
         {/* Mostra i personaggi in una griglia */}
@@ -134,7 +128,7 @@ export function Home() {
             characters.map((character, index) => (
               <div
                 key={index}
-                className="card border rounded-lg shadow-md flex flex-col items-center p-2 bg-white hover:shadow-lg hover:scale-105 transition-transform duration-300"
+                className="card border rounded-lg shadow-md hover:shadow-xl transition-shadow duration-500 flex flex-col items-center p-2 bg-white"
               >
                 <div className="w-full h-56 flex justify-center items-center mb-4">
                   <img

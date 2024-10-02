@@ -94,7 +94,7 @@ export function Login() {
             />
           </div>
 
-          <div className="flex justify-center items-center gap-2 font-semibold">
+          <div className="flex items-center justify-center gap-2">
             <Checkbox onChange={toggleShowPassword} checked={showPassword} />{' '}
             <span>Mostra Password</span>
           </div>
