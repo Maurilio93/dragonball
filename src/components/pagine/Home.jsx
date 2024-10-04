@@ -100,7 +100,7 @@ export function Home() {
         </div>
       </header>
 
-      <main className="px-4 py-8">
+      <main className="px-4 py-8 bg-white">
         <form
           onSubmit={handleSearch}
           className="flex justify-center items-center mt-8"

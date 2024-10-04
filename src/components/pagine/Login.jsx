@@ -40,13 +40,15 @@ export function Login() {
 
       if (user) {
         // Login avvenuto con successo
-        localStorage.setItem('username', user.username); // Salva username in localStorage
+        // TODO rimuovere password da user
+        const userInfoToString = JSON.stringify(user)
+        localStorage.setItem("userInfo", userInfoToString);
         Swal.fire({
           title: 'Good job!',
           text: 'Login avvenuto con successo',
           icon: 'success',
         });
-        navigate('/dashboard'); // Reindirizza alla dashboard
+        navigate('/dashboard');
       } else {
         Swal.fire({
           icon: 'error',

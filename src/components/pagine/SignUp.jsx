@@ -70,10 +70,14 @@ export function SignUp() {
 
         console.log('Dati della risposta:', data);
 
-        localStorage.setItem('username', data.username);
-        localStorage.setItem('email', data.email);
-        localStorage.setItem('phone', data.phone);
-        localStorage.setItem('password', data.password);
+        const userInfo = {
+          'username': data.username,
+          'email': data.email,
+          'phone': data.phone,
+        }
+        const userInfoToString = JSON.stringify(userInfo)
+        localStorage.setItem("userInfo",userInfoToString);
+
 
         navigate('/login');
       } else {
