@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../globali/Button';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { SecondButton } from '../globali/SecondButton';
 
 export function Home() {
   const [characters, setCharacters] = useState([]); // Stato per memorizzare la lista di personaggi
   const [searchTerm, setSearchTerm] = useState(''); // Stato per la barra di ricerca
   const [loading, setLoading] = useState(false); // Stato per gestire il caricamento
+  const user = JSON.parse(localStorage.getItem("userInfo")); // Verifica se l'utente è loggato
+  const navigate = useNavigate();
 
   // Funzione per fare la chiamata API e ottenere tutti i personaggi
   const fetchCharacters = async (query = '') => {
@@ -42,6 +46,11 @@ export function Home() {
   const handleSearch = (event) => {
     event.preventDefault();
     fetchCharacters(searchTerm); // Cerca personaggi in base al termine di ricerca
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userInfo");
+    navigate("/");
   };
 
   return (
@@ -83,19 +92,27 @@ export function Home() {
               </ul>
             </nav>
 
+            {/* Pulsante Benvenuto */}
             <div className="flex items-center gap-4">
-              <div className="sm:flex sm:gap-4">
-                <Link to="/login">
-                  <Button type="button" text="Login" />
-                </Link>
-
-                <div className="hidden sm:flex">
+              {user ? (
+                <>
+                  <Link to="/dashboard">
+                    <Button type="button" text={`Back👈`} className="px-4 py-2 bg-blue-500 text-white rounded-md" />
+                  </Link>
+                  <SecondButton type="button" onClick={handleLogout} text="Logout" className="px-4 py-2 bg-blue-500 text-white rounded-md" />
+                </>
+              ) : (
+                <div className="flex items-center gap-4">
+                  <Link to="/login">
+                    <Button type="button" text="Login" />
+                  </Link>
                   <Link to="/signup">
                     <Button type="button" text="Registrati" />
                   </Link>
                 </div>
-              </div>
+              )}
             </div>
+
           </div>
         </div>
       </header>
@@ -112,12 +129,7 @@ export function Home() {
             placeholder="Cerca personaggi..."
             className="px-5 py-3 mx-2 border rounded-lg focus:outline-none"
           />
-          <Button
-            type="submit"
-            text='Cerca'
-          >
-            Cerca
-          </Button>
+          <Button type="submit" text="Cerca" />
         </form>
 
         {/* Mostra i personaggi in una griglia */}
