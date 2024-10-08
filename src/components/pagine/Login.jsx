@@ -3,27 +3,30 @@ import { Button } from '../globali/Button';
 import { Checkbox } from '../globali/Checkbox';
 import { HandleLogin } from '../logica/HandleLogin';
 import { Textbox } from '../globali/Textbox';
-import { useState } from 'react';
 import Swal from 'sweetalert2';
+import bcrypt from 'bcryptjs';
 
 export function Login() {
-  const { handleChange, formData, showPassword, toggleShowPassword } =
-    HandleLogin({
-      username: '',
-      password: '',
-    });
+  const { handleChange, toggleShowPassword, showPassword, formData } = HandleLogin();
+  const navigate = useNavigate();
 
-  const [errorMessage] = useState('');
-
-  const navigate = useNavigate(); // Inizializza il navigatore per il redirect
-
-  // Funzione di submit per il login
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const url = 'https://66fc0e66c3a184a84d15e4f0.mockapi.io/Users';
-      const response = await fetch(url);
+      const url = 'http://localhost:3000/login';
+      const data = {
+        username: 'maurilio93',
+        password: 'maurilio26'
+      };
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
 
       if (!response.ok) {
         throw new Error('Errore nel recupero degli utenti');
@@ -31,29 +34,37 @@ export function Login() {
 
       const users = await response.json();
 
-      // Verifica se l'utente esiste e la password coincide
-      const user = users.find(
-        (user) =>
-          user.username === formData.username &&
-          user.password === formData.password
-      );
+      // Trova l'utente corrispondente all'username
+      const user = users.find((user) => user.username === formData.username);
 
       if (user) {
-        // Login avvenuto con successo
-        // TODO rimuovere password da user
-        const userInfoToString = JSON.stringify(user)
-        localStorage.setItem("userInfo", userInfoToString);
-        Swal.fire({
-          title: 'Good job!',
-          text: 'Login avvenuto con successo',
-          icon: 'success',
-        });
-        navigate('/dashboard');
+        // Confronta la password inserita con quella crittografata
+        const isMatch = await bcrypt.compare(formData.password, user.password);
+
+        if (isMatch) {
+          // Salva i dati dell'utente mantenendo la password crittografata
+          const userInfoToSave = { ...user };
+          localStorage.setItem("userInfo", JSON.stringify(userInfoToSave));
+
+          Swal.fire({
+            title: 'Good job!',
+            text: 'Login avvenuto con successo',
+            icon: 'success',
+          });
+
+          navigate('/dashboard');
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Username o password errati. Riprova.',
+          });
+        }
       } else {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Username o password errati. Riprova.',
+          text: 'Utente non trovato. Riprova.',
         });
       }
     } catch (error) {
@@ -100,10 +111,6 @@ export function Login() {
             <Checkbox onChange={toggleShowPassword} checked={showPassword} />{' '}
             <span>Mostra Password</span>
           </div>
-
-          {errorMessage && (
-            <p className="text-red-600 text-center">{errorMessage}</p>
-          )}
 
           <Button
             type="submit"

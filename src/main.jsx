@@ -5,11 +5,13 @@ import { Login } from './components/pagine/Login.jsx';
 import { Home } from './components/pagine/Home.jsx';
 import { SignUp } from './components/pagine/SignUp.jsx';
 import { Dashboard } from './components/pagine/Dashboard.jsx';
+import { ModificaPassword } from './components/globali/ModificaPassword.jsx';
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 import './index.css';
+
 
 function checkIfUserLogged() {
   if (localStorage.getItem("userInfo")) {
@@ -47,6 +49,10 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard />,
     loader: checkIfUserNotLogged
+  },
+  {
+    path: "/modificapassword",
+    element: <ModificaPassword />,
   }
 ]);
 

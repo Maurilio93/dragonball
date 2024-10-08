@@ -7,7 +7,7 @@ export function Dashboard() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("userInfo");
+    localStorage.removeItem("userInfo");  // Rimuove solo i dati dell'utente
     navigate("/");
   };
 
@@ -67,8 +67,18 @@ export function Dashboard() {
           <h2 className="text-2xl font-semibold mb-2 text-gray-900">Info Utente</h2>
           <p className="text-gray-700"><strong>Nome:</strong> {user?.username}</p>
           <p className="text-gray-700"><strong>Email:</strong> {user?.email}</p>
+          <p className="text-gray-700"><strong>Password:</strong> {'•'.repeat(8)}</p>
+          {/* Il pulsante per modificare la password */}
+          <div className="m-3">
+            <Button
+              onClick={() => navigate('/modificapassword')}
+              text="Modifica Password"
+              type="button"
+            />
+          </div>
         </div>
       </div>
+
 
       {/* Griglia delle Sezioni */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 pb-16 max-w-6xl mx-auto mt-10">

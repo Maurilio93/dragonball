@@ -5,6 +5,8 @@ import { Checkbox } from '../globali/Checkbox';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import bcrypt from 'bcryptjs';
+
 
 export function SignUp() {
   const { handleChange, formData, showPassword, toggleShowPassword } =
@@ -32,6 +34,15 @@ export function SignUp() {
       return;
     }
 
+    if (formData.password.length < 8) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Password Troppo Breve',
+        text: 'La password deve essere lunga almeno 8 caratteri.',
+      });
+      return;
+    }
+
     if (formData.password !== confirmPassword) {
       Swal.fire({
         icon: 'error',
@@ -41,16 +52,16 @@ export function SignUp() {
       return;
     }
 
-    const requestBody = {
-      username: formData.username,
-      email: formData.email,
-      phone: formData.phone,
-      password: formData.password,
-    };
-    console.log('Dati inviati:', requestBody);
-
-
     try {
+      // Genera l'hash della password
+      const hashedPassword = await bcrypt.hash(formData.password, 10);
+      const requestBody = {
+        username: formData.username,
+        email: formData.email,
+        phone: formData.phone,
+        password: hashedPassword, // Usa la password criptata qui
+      };
+
       const url = 'https://66fc0e66c3a184a84d15e4f0.mockapi.io/Users';
       const response = await fetch(url, {
         method: 'POST',
@@ -68,16 +79,8 @@ export function SignUp() {
           text: 'Ora puoi accedere con le tue credenziali.',
         });
 
-        console.log('Dati della risposta:', data);
-
-        const userInfo = {
-          'username': data.username,
-          'email': data.email,
-          'phone': data.phone,
-        }
-        const userInfoToString = JSON.stringify(userInfo)
-        localStorage.setItem("userInfo",userInfoToString);
-
+        // Salva tutti i dati dell'utente, incluso l'hash della password
+        localStorage.setItem("userInfo", JSON.stringify(data));
 
         navigate('/login');
       } else {
@@ -97,7 +100,6 @@ export function SignUp() {
       });
     }
   };
-
   return (
     <section className="bg-gray-100 min-h-screen flex justify-center items-center">
       <div className="w-full max-w-md px-4 py-16 sm:px-6 lg:px-8">
