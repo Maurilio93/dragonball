@@ -29,7 +29,6 @@ export function Login() {
         const user = await response.json();
         console.log('Risposta del server:', user);
 
-        // Controlla il campo `message` e `apiToken` per confermare il successo del login
         if (user.message === "Success!" && user.apiToken) {
           Swal.fire({
             title: 'Good job!',
@@ -63,7 +62,6 @@ export function Login() {
     }
   };
 
-  // Questo blocco `return` è ora correttamente posizionato all'esterno di `handleFormSubmit`
   return (
     <div className="flex flex-col justify-center items-center w-full min-h-screen bg-gray-100">
       <div className="mx-auto max-w-lg text-center">
