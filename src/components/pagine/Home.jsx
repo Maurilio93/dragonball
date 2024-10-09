@@ -159,6 +159,11 @@ export function Home() {
           )}
         </div>
       </main>
+      <footer className="bg-gray-300 text-center py-8 md-8">
+        <p className="text-black">
+          &copy; {new Date().getFullYear()} Tutti i dirittiriservati.
+        </p>
+      </footer>
     </div>
   );
 }

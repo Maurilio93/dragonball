@@ -5,14 +5,12 @@ import { Checkbox } from '../globali/Checkbox';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import bcrypt from 'bcryptjs';
 
 
 export function SignUp() {
   const { handleChange, formData, showPassword, toggleShowPassword } =
     HandleLogin({
       username: '',
-      name: '',
       password: '',
       email: '',
       phone: '',
@@ -51,51 +49,51 @@ export function SignUp() {
       });
       return;
     }
-
     try {
-      // Genera l'hash della password
-      const hashedPassword = await bcrypt.hash(formData.password, 10);
-      const requestBody = {
-        username: formData.username,
-        email: formData.email,
-        phone: formData.phone,
-        password: hashedPassword, // Usa la password criptata qui
-      };
-
-      const url = 'https://66fc0e66c3a184a84d15e4f0.mockapi.io/Users';
+      const url = 'http://localhost:3000/signup';
       const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          phone: formData.phone,
+          password: formData.password,
+        }),
       });
 
       if (response.ok) {
-        const data = await response.json();
-        Swal.fire({
-          icon: 'success',
-          title: 'Registrazione avvenuta con successo!',
-          text: 'Ora puoi accedere con le tue credenziali.',
-        });
-
-        // Salva tutti i dati dell'utente, incluso l'hash della password
-        localStorage.setItem("userInfo", JSON.stringify(data));
-
-        navigate('/login');
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          const data = await response.json();
+          console.log('Risposta del server:', data);
+          Swal.fire({
+            title: 'Registrazione avvenuta con successo!',
+            icon: 'success',
+          });
+          navigate('/login');
+        } else {
+          console.error("La risposta non è in formato JSON");
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Il server ha risposto con un formato inaspettato.',
+          });
+        }
       } else {
-        const errorData = await response.json();
         Swal.fire({
           icon: 'error',
-          title: 'Errore',
-          text: `Errore: ${errorData.message}`,
+          title: 'Oops...',
+          text: 'Errore durante la registrazione. Riprova.',
         });
       }
     } catch (error) {
       console.error('Errore nella richiesta:', error);
       Swal.fire({
         icon: 'error',
-        title: 'Errore',
+        title: 'Oops...',
         text: 'Si è verificato un errore durante la registrazione.',
       });
     }
