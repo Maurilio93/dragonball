@@ -29,14 +29,13 @@ export function Login() {
         const user = await response.json();
         console.log('Risposta del server:', user);
 
-        // Controlla il campo `message` e `apiToken` per confermare il successo del login
         if (user.message === "Success!" && user.apiToken) {
           Swal.fire({
             title: 'Good job!',
             text: 'Login avvenuto con successo',
             icon: 'success',
           }).then(() => {
-            localStorage.setItem('authToken', user.apiToken);
+            localStorage.setItem("userInfo", JSON.stringify(user));
             navigate('/dashboard');
           });
         } else {
