@@ -5,13 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { SecondButton } from '../globali/SecondButton';
 
 export function Home() {
-  const [characters, setCharacters] = useState([]); // Stato per memorizzare la lista di personaggi
-  const [searchTerm, setSearchTerm] = useState(''); // Stato per la barra di ricerca
-  const [loading, setLoading] = useState(false); // Stato per gestire il caricamento
-  const user = JSON.parse(localStorage.getItem("userInfo")); // Verifica se l'utente è loggato
+  const [characters, setCharacters] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(false);
+  const user = JSON.parse(localStorage.getItem("userInfo")); 
   const navigate = useNavigate();
 
-  // Funzione per fare la chiamata API e ottenere tutti i personaggi
   const fetchCharacters = async (query = '') => {
     try {
       setLoading(true);
@@ -20,9 +19,9 @@ export function Home() {
       );
       const data = await response.json();
 
-      let filteredCharacters = data.items; // Accedi all'array 'items' per ottenere i personaggi
+      let filteredCharacters = data.items; 
 
-      // Filtro i personaggi in base al termine di ricerca
+      
       if (query) {
         filteredCharacters = filteredCharacters.filter((character) =>
           character.name.toLowerCase().includes(query.toLowerCase())
@@ -37,15 +36,15 @@ export function Home() {
     }
   };
 
-  // Esegui la chiamata API al montaggio del componente
+
   useEffect(() => {
     fetchCharacters();
   }, []);
 
-  // Funzione per gestire la ricerca
+
   const handleSearch = (event) => {
     event.preventDefault();
-    fetchCharacters(searchTerm); // Cerca personaggi in base al termine di ricerca
+    fetchCharacters(searchTerm); 
   };
 
   const handleLogout = () => {

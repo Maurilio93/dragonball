@@ -67,7 +67,7 @@ export function Dashboard() {
           <h2 className="text-2xl font-semibold mb-2 text-gray-900">Info Utente</h2>
           <p className="text-gray-700"><strong>Nome:</strong> {user?.username}</p>
           <p className="text-gray-700"><strong>Password:</strong> {'•'.repeat(8)}</p>
-          {/* Il pulsante per modificare la password */}
+          {/*modificare la password */}
           <div className="m-3">
             <Button
               onClick={() => navigate('/modificapassword')}
