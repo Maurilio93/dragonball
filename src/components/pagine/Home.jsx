@@ -8,7 +8,7 @@ export function Home() {
   const [characters, setCharacters] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
-  const user = JSON.parse(localStorage.getItem("userInfo")); 
+  const user = JSON.parse(localStorage.getItem("userInfo"));
   const navigate = useNavigate();
 
   const fetchCharacters = async (query = '') => {
@@ -19,9 +19,9 @@ export function Home() {
       );
       const data = await response.json();
 
-      let filteredCharacters = data.items; 
+      let filteredCharacters = data.items;
 
-      
+
       if (query) {
         filteredCharacters = filteredCharacters.filter((character) =>
           character.name.toLowerCase().includes(query.toLowerCase())
@@ -44,7 +44,7 @@ export function Home() {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    fetchCharacters(searchTerm); 
+    fetchCharacters(searchTerm);
   };
 
   const handleLogout = () => {
@@ -160,7 +160,7 @@ export function Home() {
       </main>
       <footer className="bg-gray-300 text-center py-8 md-8">
         <p className="text-black">
-          &copy; {new Date().getFullYear()} Tutti i dirittiriservati.
+          &copy; {new Date().getFullYear()} Tutti i diritti riservati.
         </p>
       </footer>
     </div>
