@@ -64,11 +64,14 @@ export function SignUp() {
         }),
       });
 
-      if (response.ok) {
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
-          const data = await response.json();
+      if (response.ok) { // Verifica se la risposta è stata ricevuta correttamente.
+        const contentType = response.headers.get("content-type");//Ottiene il valore dell'intestazione Content-Type dalla risposta.
+        if (contentType && contentType.includes("application/json")) {  // Questo controllo verifica se contentType è definito (non null) e se contiene il testo "application/json".
+          const data = await response.json(); // Converte il JSON della risposta in un oggetto JavaScript.
+          localStorage.setItem('users', JSON.stringify(data));
           console.log('Risposta del server:', data);
+          localStorage.clear();
+
           Swal.fire({
             title: 'Registrazione avvenuta con successo!',
             icon: 'success',

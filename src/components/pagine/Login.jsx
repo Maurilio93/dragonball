@@ -12,6 +12,16 @@ export function Login() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+    // Verifica se i campi sono vuoti
+    if (!formData.username || !formData.password) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Attenzione',
+        text: 'Per favore, inserisci sia username che password.',
+      });
+      return; // Ferma l'esecuzione se uno dei campi è vuoto
+    }
+
     try {
       const url = 'http://localhost:3000/login';
       const response = await fetch(url, {
@@ -78,6 +88,7 @@ export function Login() {
             value={formData.username}
             placeholder="Inserisci username"
             onChange={handleChange}
+            required
             className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
           />
 
@@ -88,6 +99,7 @@ export function Login() {
               value={formData.password}
               placeholder="Inserisci password"
               onChange={handleChange}
+              required
               className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
             />
           </div>

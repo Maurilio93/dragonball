@@ -15,7 +15,7 @@ export function Home() {
     try {
       setLoading(true);
       const response = await fetch(
-        'https://dragonball-api.com/api/characters?limit=58'
+        'https://dragonball-api.com/api/characters?limit=100'
       );
       const data = await response.json();
 
