@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { SecondButton } from "../globali/SecondButton";
 import { Button } from "../globali/Button";
+import { ThirdButton } from "../globali/ThirdButton";
+import Swal from 'sweetalert2';
 
 export function Dashboard() {
   const user = JSON.parse(localStorage.getItem("userInfo"));
@@ -11,8 +13,19 @@ export function Dashboard() {
     navigate("/");
   };
 
-  return (
+  const navigateToAdmin = () => {
+    if (user?.roleId === 2) { // Supponendo che il ruolo admin sia 2
+      navigate('/admin');
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Non hai i permessi per accedere a questa pagina',
+      });
+    }
+  };
 
+  return (
     <div
       className="relative min-h-screen bg-cover bg-center w-full"
       style={{
@@ -44,6 +57,20 @@ export function Dashboard() {
         />
       </div>
 
+      {/* Pulsanti Admin e User */}
+      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        <ThirdButton
+          onClick={navigateToAdmin}
+          type="button"
+          text="Admin"
+        />
+        <ThirdButton
+          onClick={() => navigate('/user')}
+          type="button"
+          text="User"
+        />
+      </div>
+
       {/* Titolo e Benvenuto */}
       <div className="flex flex-col items-center mt-16 p-4 text-white max-w-lg mx-auto">
         <div className="bg-black bg-opacity-50 p-6 rounded-lg w-full text-center">
@@ -67,7 +94,7 @@ export function Dashboard() {
           <h2 className="text-2xl font-semibold mb-2 text-gray-900">Info Utente</h2>
           <p className="text-gray-700"><strong>Nome:</strong> {user?.username}</p>
           <p className="text-gray-700"><strong>Password:</strong> {'•'.repeat(8)}</p>
-          {/*modificare la password */}
+          {/* Modifica Password */}
           <div className="m-3">
             <Button
               onClick={() => navigate('/modificapassword')}
@@ -78,10 +105,8 @@ export function Dashboard() {
         </div>
       </div>
 
-
       {/* Griglia delle Sezioni */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8 pb-16 max-w-6xl mx-auto mt-10">
-
         {/* Sezione Personaggi */}
         <div className="bg-white bg-opacity-80 p-6 rounded-lg shadow-md text-center">
           <h2 className="text-2xl font-semibold mb-2">Personaggi</h2>
