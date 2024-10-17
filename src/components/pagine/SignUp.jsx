@@ -5,6 +5,7 @@ import { Checkbox } from '../globali/Checkbox';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { data } from 'autoprefixer';
 
 
 export function SignUp() {
@@ -62,7 +63,9 @@ export function SignUp() {
           phone: formData.phone,
           password: formData.password,
         }),
-      });
+      }
+      );
+
 
       if (response.ok) { // Verifica se la risposta è stata ricevuta correttamente.
         const contentType = response.headers.get("content-type");//Ottiene il valore dell'intestazione Content-Type dalla risposta.
@@ -93,6 +96,8 @@ export function SignUp() {
         });
       }
     } catch (error) {
+      console.log(data);
+
       console.error('Errore nella richiesta:', error);
       Swal.fire({
         icon: 'error',

@@ -98,9 +98,9 @@ export function Dashboard() {
 
         {/* Enciclopedia delle Tecniche */}
         <div className="bg-white bg-opacity-80 p-6 rounded-lg shadow-md text-center">
-          <h2 className="text-2xl font-semibold mb-2">Enciclopedia delle Tecniche</h2>
-          <p className="mb-4">Scopri le tecniche principali dei personaggi della serie.</p>
-          <Button onClick={() => navigate('/techniques')} text="Esplora le Tecniche" />
+          <h2 className="text-2xl font-semibold mb-2">Pianeti di DragonBall</h2>
+          <p className="mb-4">Scopri i principali Pianeti della saga di DragonBall</p>
+          <Button onClick={() => navigate('/pianeti')} text="Pianeti di DragonBall" />
         </div>
 
         {/* Sezione Episodi e Film */}
