@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import './index.css';
 import PlanetsPage from './components/pagine/PlanetPage.jsx';
+import { Admin } from './components/pagine/Admin.jsx';
 
 
 function checkIfUserLogged() {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: "/pianeti",
     element: <PlanetsPage />,
+  },
+  {
+    path:"/admin",
+    element:<Admin/>
   }
 ]);
 

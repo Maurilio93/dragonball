@@ -39,20 +39,32 @@ const PlanetsPage = () => {
     };
 
     return (
-        <div>
-            <div className="flex items-center gap-4 justify-between">
+
+        <div className="relative min-h-screen bg-cover bg-center w-full"
+            style={{
+                backgroundImage: `url('src/images/earth-at-night-view-from-space-4k-wallpaper-1980x1114.jpg')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+            }}>
+
+            <nav aria-label="Global" className="flex-1 flex justify-center">
+                <ul className="flex items-center gap-6 text-lg">
+                </ul>
+            </nav>
+            <div className="flex items-center gap-4 justify-between py-3 pr-3 pl-3">
                 <Link to="/dashboard">
                     <Button type="button" text="Back👈" className="px-4 py-2 bg-blue-500 text-white rounded-md" />
                 </Link>
                 <SecondButton type="button" onClick={handleLogout} text="Logout" className="px-4 py-2 bg-blue-500 text-white rounded-md" />
             </div>
-            <h1 className="text-center text-2xl font-bold">Pianeti</h1>
+            <h1 className="text-center text-5xl font-bold text-orange-600">PIANETI</h1>
             {loading ? (
                 <p className="text-center">Caricamento in corso...</p>
             ) : error ? (
                 <p className="text-center text-red-500">{error}</p>
             ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-6 md:grid-cols-6 gap-6 mt-8">
+                <div className="grid grid-cols-2 sm:grid-cols-6 md:grid-cols-6 gap-6 mt-8 py-5">
                     {planets.map((planet) => (
                         <div key={planet.id} className="text-center hover:scale-105 transform transition duration-300">
                             {planet.image && (
@@ -62,7 +74,7 @@ const PlanetsPage = () => {
                                     className="w-28 h-28 mx-auto rounded-full object-cover"
                                 />
                             )}
-                            <h2 className="mt-2 text-lg font-semibold">{planet.name}</h2>
+                            <h2 className="mt-2 text-lg font-semibold text-white px-2 py-1">{planet.name}</h2>
                         </div>
                     ))}
                 </div>
