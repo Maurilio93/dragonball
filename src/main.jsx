@@ -13,6 +13,7 @@ import {
 import './index.css';
 import PlanetsPage from './components/pagine/PlanetPage.jsx';
 import { Admin } from './components/pagine/Admin.jsx';
+import { User } from './components/pagine/User.jsx'
 
 
 function checkIfUserLogged() {
@@ -61,8 +62,12 @@ const router = createBrowserRouter([
     element: <PlanetsPage />,
   },
   {
-    path:"/admin",
-    element:<Admin/>
+    path: "/admin",
+    element: <Admin />
+  },
+  {
+    path: "/user",
+    element: <User />
   }
 ]);
 
