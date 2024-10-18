@@ -107,10 +107,16 @@ export function SignUp() {
     }
   };
   return (
-    <section className="bg-gray-100 min-h-screen flex justify-center items-center">
+    <section className="bg-gray-100 min-h-screen flex justify-center items-center"
+    style={{
+      backgroundImage: `url('src/images/wallpaperbetter.com_7680x4320 (3).jpg')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+  }}>
       <div className="w-full max-w-md px-4 py-16 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-black">Registrati Subito!</h1>
+          <h1 className="text-3xl font-bold text-black">REGISTRATI SUBITO!</h1>
         </div>
 
         <div className="rounded-lg bg-white p-8 shadow-lg">

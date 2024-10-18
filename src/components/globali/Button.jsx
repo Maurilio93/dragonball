@@ -4,13 +4,13 @@ export function Button({ type, text, onClick }) {
   return (
     <button
       className="
-          bg-green-600
+          bg-orange-600
           rounded-lg
           px-5
           py-2.5
           text-white
           text-lg
-          hover: border-green-600
+          hover: border-orange-600
           hover: border-2
           cursor-pointer
           hover:bg-white

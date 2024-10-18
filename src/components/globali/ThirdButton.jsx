@@ -6,16 +6,16 @@ export function ThirdButton({ type, text, onClick }) {
       className="
           w-16
           h-12
-          bg-orange-600
+          bg-green-600
           rounded-lg
           px-1.5
           py-2.5
           text-white
           text-lg
-          hover: border-x-orange-600
+          hover: border-x-green-400
           hover: border-3
           cursor-pointer
-          hover:bg-white
+          hover:bg-green-400
           hover:text-black
           focus:outline-none
         "

@@ -73,9 +73,15 @@ export function Login() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center w-full min-h-screen bg-gray-100">
+    <div className="flex flex-col justify-center items-center w-full min-h-screen bg-gray-100"   style={{
+      backgroundImage: `url('src/images/wallpaperbetter.com_7680x4320 (4).jpg')`,
+      backgroundSize: 'cover',       // Fa in modo che l'immagine riempia tutto il contenitore
+      backgroundPosition: 'center',  // Centra l'immagine
+      backgroundRepeat: 'no-repeat', // Evita che l'immagine si ripeta
+      backgroundAttachment: 'fixed', // Mantiene l'immagine fissa mentre scrolli
+    }}>
       <div className="mx-auto max-w-lg text-center">
-        <h1 className="text-2xl font-bold sm:text-3xl m-5">Accedi</h1>
+        <h1 className="text-2xl font-bold  sm:text-3xl m-5">ACCEDI!</h1>
       </div>
       <div className="rounded-lg bg-white p-8 shadow-lg">
         <form
